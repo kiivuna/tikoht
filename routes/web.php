@@ -19,3 +19,13 @@ Route::get('/', function () {
 Route::get('/login', 'SessionsController@create');
 Route::post('/login', 'SessionsController@store');
 Route::get('/logout', 'SessionsController@destroy');  //turvallisempi jos post
+
+
+//Route::get('/', 'TasksController@index')->name('home');
+Route::get('/tehtavalistas', 'TehtavalistasController@index');
+Route::get('/tehtavalistas/create', 'TehtavalistasController@create');
+Route::post('/tehtavalistas', 'TehtavalistasController@store');
+Route::get('/tehtavalistas/{tehtavalista}', 'TehtavalistasController@show');
+
+
+Route::post('/tehtavalistas/{tehtavalista}/tehtavas', 'TehtavasController@store');

@@ -2,10 +2,8 @@
   <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
-  <a class="navbar-brand" href="#">Tervetuloa</a>
-  @if(Auth::check())
-    <a class="navbar-brand" href="#" >{{ Auth::user()->name }}</a>
-  @endif
+  <a class="navbar-brand" href="/">Etusivu</a>
+
 
   <div class="collapse navbar-collapse" id="navbarsExampleDefault">
     <ul class="navbar-nav mr-auto">
@@ -23,9 +21,22 @@
         </div>
       </li>
     </ul>
-    <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="text" placeholder="Search">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-    </form>
+
+    <a class="nav-link" href='/tehtavalistas'>Kaikki tehtävälistat</a>
+
+          @if(!Auth::check())
+          <il class="ml-auto">
+            <a class="nav-link" href='/login'>Log in</a>
+          </il>
+          @endif
+
+          @if(Auth::check())
+            <a class="nav-link" href='/tehtavalistas/create'>Luo tehtävälista</a>    
+            <a class="navbar-brand" href="#" >{{ Auth::user()->name }}</a>
+            <il class="ml-auto">
+              <a class="nav-link" href='/logout'>Log out</a>             
+            </il>
+          @endif
+
   </div>
 </nav>
