@@ -24,14 +24,14 @@ name VARCHAR(50) NOT NULL,
 opnro INT NOT NULL,
 p_aine VARCHAR(50) NOT NULL,
 PRIMARY KEY (id),
-FOREIGN KEY (id) REFERENCES  users (id));    /* laitettu users(id)*/
+FOREIGN KEY (id) REFERENCES  users (id));    </br>/* laitettu users(id)*/
 </br>
 </br>
 CREATE TABLE opettajat(
 id INT NOT NULL,    
 name VARCHAR(50) NOT NULL,
 PRIMARY KEY (id),
-FOREIGN KEY (id) REFERENCES users (id));    /* laitettu users(id)*/
+FOREIGN KEY (id) REFERENCES users (id));    </br>/* laitettu users(id)*/
 </br>
 </br>
 </br>/*Tehtäväpankki*/
@@ -49,7 +49,7 @@ kysely_tyyppi VARCHAR(20) NOT NULL,
 tehtavalista_id INT NOT NULL,
 teht_luoja_id INT NOT NULL,
 PRIMARY KEY (id),
-FOREIGN KEY (teht_luoja_id) REFERENCES opettajat (id));      /* laitettu opettajat(id)*/
+FOREIGN KEY (teht_luoja_id) REFERENCES opettajat (id));      </br>/* laitettu opettajat(id)*/
 </br>
 </br>
 </br>/* tässäkin sama, eli tehtavalista+s */
@@ -62,7 +62,7 @@ updated_at TIMESTAMP NULL,
 tehtlista_kuvaus VARCHAR(100) NOT NULL,
 tehtlista_luoja_id INT NOT NULL,
 PRIMARY KEY (id),
-FOREIGN KEY (tehtlista_luoja_id) REFERENCES opettajat (id));     /* laitettu opettajat(id)*/
+FOREIGN KEY (tehtlista_luoja_id) REFERENCES opettajat (id));     </br>/* laitettu opettajat(id)*/
 </br>
 </br>
 <b>Koska</b> nyt se yks tehtävä on vaan yhessä tehtävälistassa, ni tää ei ehkä oo tarpeen. Jotenki toi seuraaja pitäis miettiä sit, mut ehkä se ei oo sit ongelma, jos se tietty tehtävä on yhessä tehtävälistassa. Tätä en siis laittanut vielä omaan tietokantaani mukaan.  
