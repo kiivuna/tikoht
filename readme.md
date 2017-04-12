@@ -8,59 +8,61 @@
 Omaan mysql-tietokantaani loin tällaset taulut. Nää meni ihan silleen, ku copypastesi nää sinne Vagrant ssh->mysql. Jouduin näitä vähän muokkaa (esim auto_increment) siihen mysql:ään sopivaks. Postgresissa tais olla sen auto_incrementin tilalla se serial. 
 </br>
 </br>
-</br>/* Käyttäjät */   /* vaihdettu kayttajat -> users */ </br>
+/* Käyttäjät */   /* vaihdettu kayttajat -> users */ </br>
 CREATE TABLE users(       
-</br>id INT NOT NULL AUTO_INCREMENT, 
-</br>name VARCHAR(255) NOT NULL,
-</br>email VARCHAR(50) UNIQUE NOT NULL,
-</br>password VARCHAR(255) NOT NULL,
-</br>remember_token VARCHAR(100),
-</br>PRIMARY KEY (id));
+id INT NOT NULL AUTO_INCREMENT, 
+name VARCHAR(255) NOT NULL,
+email VARCHAR(50) UNIQUE NOT NULL,
+password VARCHAR(255) NOT NULL,
+remember_token VARCHAR(100),
+PRIMARY KEY (id));
 </br>
 </br>
-</br>CREATE TABLE opiskelijat(
-</br>id INT NOT NULL,    
-</br>name VARCHAR(50) NOT NULL,
-</br>opnro INT NOT NULL,
-</br>p_aine VARCHAR(50) NOT NULL,
-</br>PRIMARY KEY (id),
-</br>FOREIGN KEY (id) REFERENCES  users (id));    /* laitettu users(id)*/
+CREATE TABLE opiskelijat(
+id INT NOT NULL,    
+name VARCHAR(50) NOT NULL,
+opnro INT NOT NULL,
+p_aine VARCHAR(50) NOT NULL,
+PRIMARY KEY (id),
+FOREIGN KEY (id) REFERENCES  users (id));    /* laitettu users(id)*/
 </br>
 </br>
-</br>CREATE TABLE opettajat(
-</br>id INT NOT NULL,    
-</br>name VARCHAR(50) NOT NULL,
-</br>PRIMARY KEY (id),
-</br>FOREIGN KEY (id) REFERENCES users (id));    /* laitettu users(id)*/
+CREATE TABLE opettajat(
+id INT NOT NULL,    
+name VARCHAR(50) NOT NULL,
+PRIMARY KEY (id),
+FOREIGN KEY (id) REFERENCES users (id));    /* laitettu users(id)*/
 </br>
 </br>
 </br>/*Tehtäväpankki*/
 </br>/* täs on ihan tarkotuksella tehtava+s, ku se laravel kattoo kai jotenkin sen luokan mukaan sen taulun (esim User ja et sen taulu </br>on users ja niin edelleen), ni sitten ku loin Tehtava-luokan ni se haluaa tehtavas-taulun */ 
 </br>/* sitten lisäsin tähänki tän auto_incrementin */
 </br>/*sitten vaihdoin nää aikajutut näiks timestampeiks. Nää tulee automaattisesti luoduks*/
-</br>CREATE TABLE tehtavas(   
-</br>id INT NOT NULL AUTO_INCREMENT,     
-</br>created_at TIMESTAMP NULL,           
-</br>updated_at TIMESTAMP NULL,
-</br>teht_kuvaus VARCHAR(100) NOT NULL,
-</br>esim_vastaus VARCHAR(100) NOT NULL,
-</br>kysely_tyyppi VARCHAR(20) NOT NULL,
-</br>tehtavalista_id INT NOT NULL,
-</br>teht_luoja_id INT NOT NULL,
-</br>PRIMARY KEY (id),
-</br>FOREIGN KEY (teht_luoja_id) REFERENCES opettajat (id));      /* laitettu opettajat(id)*/
+</br>
+CREATE TABLE tehtavas(   
+id INT NOT NULL AUTO_INCREMENT,     
+created_at TIMESTAMP NULL,           
+updated_at TIMESTAMP NULL,
+teht_kuvaus VARCHAR(100) NOT NULL,
+esim_vastaus VARCHAR(100) NOT NULL,
+kysely_tyyppi VARCHAR(20) NOT NULL,
+tehtavalista_id INT NOT NULL,
+teht_luoja_id INT NOT NULL,
+PRIMARY KEY (id),
+FOREIGN KEY (teht_luoja_id) REFERENCES opettajat (id));      /* laitettu opettajat(id)*/
 </br>
 </br>
 </br>/* tässäkin sama, eli tehtavalista+s */
 </br>/* sitten lisäsin tähänki tän auto_incrementin */
-</br>CREATE TABLE tehtavalistas(     
-</br>id INT NOT NULL AUTO_INCREMENT,  
-</br>created_at TIMESTAMP NULL,
-</br>updated_at TIMESTAMP NULL,
-</br>tehtlista_kuvaus VARCHAR(100) NOT NULL,
-</br>tehtlista_luoja_id INT NOT NULL,
-</br>PRIMARY KEY (id),
-</br>FOREIGN KEY (tehtlista_luoja_id) REFERENCES opettajat (id));     /* laitettu opettajat(id)*/
+</br>
+CREATE TABLE tehtavalistas(     
+id INT NOT NULL AUTO_INCREMENT,  
+created_at TIMESTAMP NULL,
+updated_at TIMESTAMP NULL,
+tehtlista_kuvaus VARCHAR(100) NOT NULL,
+tehtlista_luoja_id INT NOT NULL,
+PRIMARY KEY (id),
+FOREIGN KEY (tehtlista_luoja_id) REFERENCES opettajat (id));     /* laitettu opettajat(id)*/
 </br>
 </br>
 <b>Koska</b> nyt se yks tehtävä on vaan yhessä tehtävälistassa, ni tää ei ehkä oo tarpeen. Jotenki toi seuraaja pitäis miettiä sit, mut ehkä se ei oo sit ongelma, jos se tietty tehtävä on yhessä tehtävälistassa. Tätä en siis laittanut vielä omaan tietokantaani mukaan.  
