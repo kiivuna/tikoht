@@ -7,14 +7,16 @@
 <i>Sitten jouduin vähän muokkaamaan tähän näitä meiän tauluja.</i> </br>
 Omaan mysql-tietokantaani loin tällaset taulut. Nää meni ihan silleen, ku copypastesi nää sinne Vagrant ssh->mysql. Jouduin näitä vähän muokkaa (esim auto_increment) siihen mysql:ään sopivaks. Postgresissa tais olla sen auto_incrementin tilalla se serial. 
 </br>
-</br>/* Käyttäjät */   /* vaihdettu kayttajat -> users */
-</br>CREATE TABLE users(       
+</br>
+</br>/* Käyttäjät */   /* vaihdettu kayttajat -> users */ </br>
+CREATE TABLE users(       
 </br>id INT NOT NULL AUTO_INCREMENT, 
 </br>name VARCHAR(255) NOT NULL,
 </br>email VARCHAR(50) UNIQUE NOT NULL,
 </br>password VARCHAR(255) NOT NULL,
 </br>remember_token VARCHAR(100),
 </br>PRIMARY KEY (id));
+</br>
 </br>
 </br>CREATE TABLE opiskelijat(
 </br>id INT NOT NULL,    
@@ -24,12 +26,14 @@ Omaan mysql-tietokantaani loin tällaset taulut. Nää meni ihan silleen, ku cop
 </br>PRIMARY KEY (id),
 </br>FOREIGN KEY (id) REFERENCES  users (id));    /* laitettu users(id)*/
 </br>
+</br>
 </br>CREATE TABLE opettajat(
 </br>id INT NOT NULL,    
 </br>name VARCHAR(50) NOT NULL,
 </br>PRIMARY KEY (id),
 </br>FOREIGN KEY (id) REFERENCES users (id));    /* laitettu users(id)*/
-
+</br>
+</br>
 </br>/*Tehtäväpankki*/
 </br>/* täs on ihan tarkotuksella tehtava+s, ku se laravel kattoo kai jotenkin sen luokan mukaan sen taulun (esim User ja et sen taulu </br>on users ja niin edelleen), ni sitten ku loin Tehtava-luokan ni se haluaa tehtavas-taulun */ 
 </br>/* sitten lisäsin tähänki tän auto_incrementin */
@@ -45,6 +49,7 @@ Omaan mysql-tietokantaani loin tällaset taulut. Nää meni ihan silleen, ku cop
 </br>teht_luoja_id INT NOT NULL,
 </br>PRIMARY KEY (id),
 </br>FOREIGN KEY (teht_luoja_id) REFERENCES opettajat (id));      /* laitettu opettajat(id)*/
+</br>
 </br>
 </br>/* tässäkin sama, eli tehtavalista+s */
 </br>/* sitten lisäsin tähänki tän auto_incrementin */
