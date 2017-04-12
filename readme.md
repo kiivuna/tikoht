@@ -80,4 +80,7 @@ FOREIGN KEY (tehtlista_luoja_id) REFERENCES opettajat (id));     </br>/* laitett
 </br>
 <b>Sitten</b> lisäsin sinne app\database\seeds -kansioon sellasen ku UsersTableSeeder, ni sitä voi käyttää avuks ku luo uusia käyttäjiä. Ohjeet oli tämän linki takaa: https://laravel.com/docs/5.4/seeding
 </br> 
-Mut yhteenvetona vaan, että ku jos kopioit sen UsersTableSeederin sellasenaan tonne kansioon ja meet sinne Vagrant ssh -puolelle ja sinne cd Code\Laravel -kansioon ja kirjotat sellasen tekstin pätkän kun: php artisan db:seed --class=UsersTableSeeder   , niin se luo yhen käyttäjän aina mielivaltasella tekstillä. Sitten ite menin ihan sinne mysql:n puolelle ja loin sitten sille luodulle käyttäjälle sen opettajat-taulun tiedon ihan käsin. Ja kun kirjautuu sisään, ni se tunnus on se käyttäjän email ja salasana on tolla aina secret. 
+Mut yhteenvetona vaan, että ku jos kopioit sen UsersTableSeederin sellasenaan tonne kansioon ja meet sinne Vagrant ssh -puolelle ja sinne cd Code\Laravel -kansioon ja kirjotat sellasen tekstin pätkän kun:</br>
+php artisan db:seed --class=UsersTableSeeder   
+</br>
+,niin se luo yhen käyttäjän aina mielivaltasella tekstillä. Sitten ite menin ihan sinne mysql:n puolelle ja loin sitten sille luodulle käyttäjälle sen opettajat-taulun tiedon ihan käsin. Ja kun kirjautuu sisään, ni se tunnus on se käyttäjän email ja salasana on tolla aina secret. 
