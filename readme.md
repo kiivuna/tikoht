@@ -1,40 +1,64 @@
-<p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
+<b>Toka</b> versiossa kirjautuneen käyttäjän on mahdollista
+-luoda tehtävälista (näkyy tosin vielä kaikille)
+-luoda tehtävälistaan tehtäviä (näkyy nekin kaikille)
+  *Tässä päädyin nyt sellaseen, että jokanen tehtävä voi kuulua vain yhteen tehtävälistaan. Tää rikkoo meidän alkuperästä ajatusta, mut näin sen sain ainaki toimimaan, et tää vois olla nyt eka askel tässä. 
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
-</p>
+Sitten jouduin vähän muokkaamaan tähän näitä meiän tauluja.
+Omaan mysql-tietokantaani loin tällaset taulut. Nää meni ihan silleen, ku copypastesi nää sinne Vagrant ssh->mysql. Jouduin näitä vähän muokkaa (esim auto_increment) siihen mysql:ään sopivaks. Postgresissa tais olla sen auto_incrementin tilalla se serial. 
 
-## About Laravel
+/* Käyttäjät */
+CREATE TABLE users(         /*vaihdettu kayttajat -> users)
+id INT NOT NULL AUTO_INCREMENT,        /* http://stackoverflow.com/questions/3108777/how-to-auto-increment-in-postgresql  */
+name VARCHAR(255) NOT NULL,
+email VARCHAR(50) UNIQUE NOT NULL,
+password VARCHAR(255) NOT NULL,
+remember_token VARCHAR(100),
+PRIMARY KEY (id));
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as:
+CREATE TABLE opiskelijat(
+id INT NOT NULL,    
+name VARCHAR(50) NOT NULL,
+opnro INT NOT NULL,
+p_aine VARCHAR(50) NOT NULL,
+PRIMARY KEY (id),
+FOREIGN KEY (id) REFERENCES  users (id));  /* laitettu users(id)*/
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+CREATE TABLE opettajat(
+id INT NOT NULL,    
+name VARCHAR(50) NOT NULL,
+PRIMARY KEY (id),
+FOREIGN KEY (id) REFERENCES users (id)); /* laitettu users(id)*/
 
-Laravel is accessible, yet powerful, providing tools needed for large, robust applications. A superb combination of simplicity, elegance, and innovation give you tools you need to build any application with which you are tasked.
+/*Tehtäväpankki*/
+/* täs on ihan tarkotuksella tehtava+s, ku se laravel kattoo kai jotenkin sen luokan mukaan sen taulun (esim User ja et sen taulu on users ja niin edelleen), ni sitten ku loin Tehtava-luokan ni se haluaa tehtavas-taulun */ 
+CREATE TABLE tehtavas(   
+id INT NOT NULL AUTO_INCREMENT,     /* sitten lisäsin tähänki tän auto_incrementin */
+created_at TIMESTAMP NULL,           /*sitten vaihdoin nää aikajutut näiks timestampeiks. Nää tulee automaattisesti luoduks*/
+updated_at TIMESTAMP NULL,
+teht_kuvaus VARCHAR(100) NOT NULL,
+esim_vastaus VARCHAR(100) NOT NULL,
+kysely_tyyppi VARCHAR(20) NOT NULL,
+tehtavalista_id INT NOT NULL,
+teht_luoja_id INT NOT NULL,
+PRIMARY KEY (id),
+FOREIGN KEY (teht_luoja_id) REFERENCES opettajat (id));   /* laitettu opettajat(id)*/
 
-## Learning Laravel
+CREATE TABLE tehtavalistas(     /* tässäkin sama, eli tehtavalista+s */
+id INT NOT NULL AUTO_INCREMENT,  /* sitten lisäsin tähänki tän auto_incrementin */
+created_at TIMESTAMP NULL,
+updated_at TIMESTAMP NULL,
+/*teht_kpl INT NOT NULL,  */   /*johdettava attribuutti, */
+tehtlista_kuvaus VARCHAR(100) NOT NULL,
+tehtlista_luoja_id INT NOT NULL,
+PRIMARY KEY (id),
+FOREIGN KEY (tehtlista_luoja_id) REFERENCES opettajat (id));   /* laitettu opettajat(id)*/
 
-Laravel has the most extensive and thorough documentation and video tutorial library of any modern web application framework. The [Laravel documentation](https://laravel.com/docs) is thorough, complete, and makes it a breeze to get started learning the framework.
 
-If you're not in the mood to read, [Laracasts](https://laracasts.com) contains over 900 video tutorials on a range of topics including Laravel, modern PHP, unit testing, JavaScript, and more. Boost the skill level of yourself and your entire team by digging into our comprehensive video library.
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](http://laravel.com/docs/contributions).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
+<b>Koska</b> nyt se yks tehtävä on vaan yhessä tehtävälistassa, ni tää ei ehkä oo tarpeen. Jotenki toi seuraaja pitäis miettiä sit, mut ehkä se ei oo sit ongelma, jos se tietty tehtävä on yhessä tehtävälistassa. Tätä en siis laittanut vielä omaan tietokantaani mukaan.  
+CREATE TABLE tehtlistaSisaltaa(
+tehtlista_id INT NOT NULL, 
+teht_id INT NOT NULL, 
+seuraaja_id INT,            /*tehtävien sisäinen järjestys / linkitetty lista*/
+PRIMARY KEY (tehtlista_id, teht_id),
+FOREIGN KEY (tehtlista_id) REFERENCES tehtavalistat (id), 
+FOREIGN KEY (teht_id) REFERENCES tehtavat (id));
