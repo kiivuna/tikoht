@@ -61,14 +61,67 @@ class TehtavalistasController extends Controller
 
     	]);
 
+        $tehtavalista = new Tehtavalista(request(['tehtlista_kuvaus', ]));
+
     	auth()->user()->publish(
-    		new Tehtavalista(request(['tehtlista_kuvaus', ]))
+    		//new Tehtavalista(request(['tehtlista_kuvaus', ]))
+            $tehtavalista
     	);
 
     	//massassignmentexception
-
+        //$tehtavalista->id = request('id');
     	//And then redirect to the home page.
-    	return redirect('/');
+        //return redirect('/');
+        //return view('tehtavalistas.show', $tehtavalista);
+        // For a route with the following URI: profile/{id}
+        return redirect()->action(
+            'TehtavalistasController@show', ['id' => Tehtavalista::all()->last()->id]
+        );
+    }
+
+    public function destroy($id)
+    {
+        $tehtavalista = Tehtavalista::findOrFail($id)->delete();
+
+        return redirect('/');
+
+    }
+
+    public function edit($id)
+    {
+        $tehtavalista = Tehtavalista::find($id);
+
+        return view('tehtavalistas.edit', compact('tehtavalista'));
+
+    }
+
+    public function update($id)
+    {
+        
+        $this->validate(request(), [
+            'tehtlista_kuvaus' => 'required',
+        ]);
+
+        $tehtavalista = Tehtavalista::findOrFail($id);
+        $tehtavalista->tehtlista_kuvaus = request('tehtlista_kuvaus');
+        $user = User::findOrFail($tehtavalista->tehtlista_luoja_id);
+        //$user->publish($tehtavalista);
+        $tehtavalista->save();
+
+        //return redirect('/');
+        return redirect()->action(
+            'TehtavalistasController@show', ['id' => $id]
+        );
+
+    }
+
+    public function omat()  //Task::find(wildcard);
+    {
+        $tehtavalistas = Tehtavalista::latest() //Tehtavalista::orderBy('created_at', 'desc') //Tehtavalista::latest() //Post::orderBy('created_at', 'desc');  //latest()->get()
+            ->filter(request(['month', 'year']))
+            ->get();
+
+        return view('tehtavalistas.omat', compact('tehtavalistas'));
     }
 
 }

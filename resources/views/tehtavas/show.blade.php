@@ -18,6 +18,7 @@
 				Tehtävän kyselytyyppi:
 				{{ $tehtava->kysely_tyyppi }}
 				<hr>
+				@include('tehtavas.delete')
 			</li>
 		@endforeach
 	</ul>

@@ -36,13 +36,19 @@ class User extends Authenticatable
 
     public function publish(Tehtavalista $tehtavalista)
     {
-       //$this->tehtavalistat()->save($tehtavalista);
+       //$this->tehtavalistas()->save($tehtavalista);
         Tehtavalista::create([
             'tehtlista_kuvaus' => request('tehtlista_kuvaus'),
             'tehtlista_luoja_id' => auth()->id()
             //'body' => request('body'),
             //'user_id' => auth()->id()
-        ]);
+       ]);
+
+    }
+
+    public function isAdmin()
+    {
+        return $this->admin; // this looks for an admin column in your users table
     }
 
 }
