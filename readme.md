@@ -78,9 +78,11 @@ FOREIGN KEY (tehtlista_luoja_id) REFERENCES opettajat (id));     </br>/* laitett
 
 </br>
 </br>
-<b>Sitten</b> lisäsin sinne app\database\seeds -kansioon sellasen ku UsersTableSeeder, ni sitä voi käyttää avuks ku luo uusia käyttäjiä. Ohjeet oli tämän linki takaa: https://laravel.com/docs/5.4/seeding
-</br> 
+<b>Sitten</b> lisäsin sinne app\database\seeds -kansioon sellasen ku UsersTableSeeder, ni sitä voi käyttää avuks ku luo uusia käyttäjiä. Ohjeet oli tämän linki takaa: https://laravel.com/docs/5.4/seeding ja tässä vielä parempi linkki, niin saa ihmismäisempiä nimiä: http://laraveldaily.com/generating-fake-seeds-data-with-faker-package/
+</br>
+<u>Päivitys</u>: Vaihdoin tohon seederin tohon faker-muotoon, niin ne käyttäjät, mitkä luo, ni saa vähän ihmismäisempiä nimiä. Lisäksi siihen saa laittaa suoraan, että kuin paljon haluaa niitä käyttäjiä kerralla luoda. Laitoin siihen nyt et se luo kerralla 3 hlöä.
+</br>
 Mut yhteenvetona vaan, että ku jos kopioit sen UsersTableSeederin sellasenaan tonne kansioon ja meet sinne Vagrant ssh -puolelle ja sinne cd Code\Laravel -kansioon ja kirjotat sellasen tekstin pätkän kun:</br>
 php artisan db:seed --class=UsersTableSeeder   
 </br>
-,niin se luo yhen käyttäjän aina mielivaltasella tekstillä. Sitten ite menin ihan sinne mysql:n puolelle ja loin sitten sille luodulle käyttäjälle sen opettajat-taulun tiedon ihan käsin. Ja kun kirjautuu sisään, ni se tunnus on se käyttäjän email ja salasana on tolla aina secret. 
+,niin se luo nyt kolme käyttäjää. Sitten ite menin ihan sinne mysql:n puolelle ja loin sitten sille luodulle käyttäjälle sen opettajat-taulun tiedon ihan käsin. Ja kun kirjautuu sisään, ni se tunnus on se käyttäjän email ja salasana on tolla aina secret. 
