@@ -25,4 +25,4 @@ PRIMARY KEY (id));
 </br>
 se siis luo automaattisesti kaikille 0 arvon et ei oo admin. se pitää käydä sitä käsin päivittämässä sinne tietokantaan, et kelle sen oikeuden haluaa antaa. 
 </br> 
-Admin pystyy nyt sitten kaikkien tehtävälistoja ja tehtäviä tarkastelee ja poistaa ja muokkaamaan. Äsken huomasin, että se ei toimi kunnolla, jos admin yrittää luoda tehtävälistan, tai sitten luoda tehtävän. Täytyy ne viel korjata. Muut toiminnallisuudet näyttäis toimivan. 
+Admin pystyy nyt sitten kaikkien tehtävälistoja ja tehtäviä tarkastelee ja poistaa ja muokkaamaan. Äsken huomasin, että se ei toimi kunnolla, jos admin yrittää luoda tehtävälistan, tai sitten luoda tehtävän. Täytyy ne viel korjata. Muut toiminnallisuudet näyttäis toimivan. <b>PÄIVITYS!</b> Tää adminin luontiongelmahomma johtu siitä, että en ollut laittanut sitä adminia opettajat-tauluun. Elikä ku sen lisäs sinne kans, niin noi luonnit toimi.  
