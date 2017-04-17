@@ -46,6 +46,20 @@ class User extends Authenticatable
 
     }
 
+    public function publishSessio(Sessio $sessio)
+    {
+       //$this->tehtavalistas()->save($tehtavalista);
+        Sessio::create([
+            'tehtlista_id' => request('tehtlista_id'),
+            'kurssi_id' => request('kurssi_id'),
+            'session_luoja_id' => auth()->id()
+            //'body' => request('body'),
+            //'user_id' => auth()->id()
+       ]);
+
+    }
+
+
     public function isAdmin()
     {
         return $this->admin; // this looks for an admin column in your users table

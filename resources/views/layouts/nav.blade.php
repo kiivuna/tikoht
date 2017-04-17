@@ -11,11 +11,22 @@
     </il>
     @endif
 
-    @if(Auth::check() && ( !empty( DB::table('opettajat')->having('id', Auth::user()->id)->first() ) || Auth::user()->isAdmin() ))
+    @if(Auth::check() && ( !empty( DB::table('opettajat')->having('id', Auth::user()->id)->groupBy('id')->first() ) || Auth::user()->isAdmin() ))
       <a class="nav-link" href='/tehtavalistas'>Kaikki tehtävälistat</a>
       <a class="nav-link" href='/tehtavalistas/omat'>Omat tehtävälistat</a>
       <a class="nav-link" href='/tehtavalistas/create'>Luo tehtävälista</a> 
+      <a class="nav-link" href='/sessios/create'>Luo sessio</a>
+      <a class="nav-link" href='/sessios/omat'>Omat luodut sessiot</a> 
     @endif
+
+    @if(Auth::check() && ( Auth::user()->isAdmin() ))
+      <a class="nav-link" href='/sessios'>Kaikkien opettajien sessiot</a> 
+    @endif
+
+    @if(Auth::check() && ( !empty( DB::table('opiskelijat')->having('id', Auth::user()->id)->groupBy('id')->first() ) || Auth::user()->isAdmin() ))
+      <a class="nav-link" href='/kurssit'>Kurssit</a>
+    @endif
+
 
     @if(Auth::check())
       <il class="ml-auto">

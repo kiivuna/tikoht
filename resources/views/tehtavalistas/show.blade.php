@@ -1,6 +1,6 @@
 @extends('layouts.master')
 
-@if(Auth::check() && ( !empty( DB::table('opettajat')->having('id', Auth::user()->id)->first() ) || Auth::user()->isAdmin() ))
+@if(Auth::check() && ( !empty( DB::table('opettajat')->having('id', Auth::user()->id)->groupBy('id')->first() ) || Auth::user()->isAdmin() ))
 
 	@section('content')
 

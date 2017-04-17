@@ -1,4 +1,4 @@
-@if(Auth::check() && ( !empty( DB::table('opettajat')->having('id', Auth::user()->id)->first() ) || Auth::user()->isAdmin() ))
+@if(Auth::check() && ( !empty( DB::table('opettajat')->having('id', Auth::user()->id)->groupBy('id')->first() ) || Auth::user()->isAdmin() ))
   <div class="blog-post">
     <h2 class="blog-post-title">
       <a href="/tehtavalistas/{{ $tehtavalista->id }}">
