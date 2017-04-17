@@ -4,4 +4,4 @@
 Huomasin taas sellasen jutun postgressistä, että se näköjään pienentää kaikki taulujen nimet automaattisesti. Meillä oli sellanen kuin kurssinOsallistujat, niin se oli se tehny siitä kurssinosallistujat. MySql taas ei tätä tehny. 
 </br>
 </br>
-Näistä kursseista sen verran, että ne pitää siis käsin mennä sinne tietokantaan käydä luomassa. Pitää päivitää se <i>kurssis</i>- ja <i>kurssinosallistujat</i> -taulu. Laittelen sinne testidataa. Sitten siellä on uutena kans <i>sessios</i>-taulu. Laitan muuten ne taulujen luontilauseet tähän ihan omaks tiedostoks, ni näkee paremmin ne. 
+Näistä kursseista sen verran, että ne pitää siis käsin mennä sinne tietokantaan käydä luomassa. Pitää päivitää se <i>kurssis</i>- ja <i>kurssinosallistujat</i> -taulu. Laittelen sinne testidataa. Sitten siellä on uutena kans <i>sessios</i>-taulu. Laitan muuten ne taulujen luontilauseet tähän ihan omaks tiedostoks, ni näkee paremmin ne. (tikoht/taulut.sql)
