@@ -69,3 +69,37 @@ PRIMARY KEY (id),
 FOREIGN KEY (tehtlista_id) REFERENCES tehtavalistas,
 FOREIGN KEY (session_luoja_id) REFERENCES opettajat,
 FOREIGN KEY (kurssi_id) REFERENCES kurssis);
+
+
+/*puuttuu vielä taulut 
+
+Tää vielä tulee mukaan tietokantaan
+CREATE TABLE sessiotehtavas(  
+sessio_id INT NOT NULL, 
+op_id INT NOT NULL, 
+t_id INT NOT NULL,
+aloitus_hetki TIME NOT NULL,       
+lopetus_hetki TIME NOT NULL,        
+yritys INT NOT NULL,               
+oikein BOOLEAN NOT NULL,            
+PRIMARY KEY (sessio_id, op_id, t_id, yritys),
+FOREIGN KEY (op_id) REFERENCES opiskelijat (id),
+FOREIGN KEY (sessio_id) REFERENCES sessiot (id));
+
+Varmaan tääki sit
+CREATE TABLE sessioSisaltaa( 
+sessio_id INT NOT NULL, 
+sessioteht_id INT NOT NULL, 
+PRIMARY KEY (sessio_id, sessioteht_id),
+FOREIGN KEY (sessio_id) REFERENCES sessiot (id), 
+FOREIGN KEY (sessioteht_id) REFERENCES sessiotehtavat (sessio_id));
+
+Tää on varmaan turha?
+CREATE TABLE tehtlistaSisaltaa(
+tehtlista_id INT NOT NULL, 
+teht_id INT NOT NULL, 
+seuraaja_id INT,            
+PRIMARY KEY (tehtlista_id, teht_id),
+FOREIGN KEY (tehtlista_id) REFERENCES tehtavalistat (id), 
+FOREIGN KEY (teht_id) REFERENCES tehtavat (id));
+*/
