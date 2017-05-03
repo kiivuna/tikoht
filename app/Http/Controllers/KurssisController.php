@@ -40,11 +40,6 @@ class KurssisController extends Controller
 	    $kyselytyyppi = $request->input('kyselytyyppi');
 	    $tehtnro = $request->input('tehtnro');
 	    try {
-	    	$result = DB::select($vastaus, array(1));
-			DB::rollback();
-	    	DB::beginTransaction();
-	    	$yritys =  DB::select($op_vastaus, array(1));
-			DB::rollback();
 		    //if($vastaus == $op_vastaus){
 	    	if(strcasecmp($kyselytyyppi, 'delete') == 0 ){   //kirjaimen koolla ei valia
 	    		if(strcasecmp(preg_replace('/\s+/', '', $vastaus), preg_replace('/\s+/', '', $op_vastaus)) == 0){
@@ -58,13 +53,34 @@ class KurssisController extends Controller
 	    		}
 
 	    	}
-		    else if($yritys == $result){
-		    	DB::rollback();
-		    	//return $op_vastaus;//back();
-		    	# Pass the value while redirecting
-		    	$tehtnro++;
-				return redirect()->back()->with('saatunro', $tehtnro);
-		    }
+		    else if(strcasecmp($kyselytyyppi, 'select') == 0 ){
+          	   $result = DB::select($vastaus);
+               DB::rollback();
+               DB::beginTransaction();
+               $yritys =  DB::select($op_vastaus);
+               DB::rollback();
+               if($yritys == $result){
+                  DB::rollback();
+                  //return $op_vastaus;//back();
+                  # Pass the value while redirecting
+                  $tehtnro++;
+                  return redirect()->back()->with('saatunro', $tehtnro);
+               }
+          }
+ 		    else if(strcasecmp($kyselytyyppi, 'insert') == 0 ){
+          	   $result = DB::insert($vastaus);
+               DB::rollback();
+               DB::beginTransaction();
+               $yritys =  DB::insert($op_vastaus);
+               DB::rollback();
+               if($yritys == $result){
+                  DB::rollback();
+                  //return $op_vastaus;//back();
+                  # Pass the value while redirecting
+                  $tehtnro++;
+                  return redirect()->back()->with('saatunro', $tehtnro);
+               }
+          }
 		    else{
 		    	DB::rollback();
     			return redirect()->back()->withErrors([
@@ -80,7 +96,7 @@ class KurssisController extends Controller
 		  // Note any method of class PDOException can be called on $ex.
 		     return redirect()->back()->withErrors([
     			'message' => 'Jotain meni pieleen syntaksissa. Kokeile uudestaan.'
-    		]);
+    		])->with('saatunro', $tehtnro);
 		}
 
 	}
