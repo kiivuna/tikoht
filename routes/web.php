@@ -64,3 +64,5 @@ Route::get('/kurssit/sessiot/{sessio}', 'SessiosController@showsessiot');
 Route::get('protected', ['middleware' => ['auth', 'admin'], function() {
     return "this page requires that you be logged in and an Admin";
 }]);
+
+Route::post('saveproduct', array('uses' => 'KurssisController@save'));
